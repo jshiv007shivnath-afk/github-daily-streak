@@ -9,7 +9,7 @@ Automated daily commit repository designed to keep your GitHub contribution grap
 git init -b main
 git add .
 git commit -m "chore: initial commit for streak keeper"
-git remote add origin https://github.com/<YOUR_USERNAME>/<YOUR_REPO_NAME>.git
+git remote add origin https://github.com/jshiv007shivnath-afk/<YOUR_REPO_NAME>.git
 git push -u origin main
 ```
 
