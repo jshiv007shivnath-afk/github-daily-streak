@@ -4,7 +4,12 @@ on:
   schedule:
     # Runs daily at 00:00 UTC (05:30 AM IST)
     - cron: '0 0 * * *'
-  workflow_dispatch: # Allows manual triggering from the GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      commit_count:
+        description: 'Number of commits to create (default: random between 10 and 12)'
+        required: false
+        default: 'random'
 
 permissions:
   contents: write
@@ -23,13 +28,26 @@ jobs:
           git config --local user.name "jshiv007shivnath-afk"
           git config --local user.email "jshiv007.shivnath@gmail.com"
 
-      - name: Append timestamp to activity log
+      - name: Generate daily commits (10 to 12 commits)
         run: |
-          echo "Activity timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> activity-log.txt
+          # Determine commit count: either input value or random between 10 and 12
+          if [ "${{ github.event.inputs.commit_count }}" != "" ] && [ "${{ github.event.inputs.commit_count }}" != "random" ]; then
+            TOTAL_COMMITS=${{ github.event.inputs.commit_count }}
+          else
+            # Generates 10, 11, or 12 commits randomly
+            TOTAL_COMMITS=$(( (RANDOM % 3) + 10 ))
+          fi
 
-      - name: Commit and push changes
+          echo "Target commit count for today: $TOTAL_COMMITS"
+
+          for i in $(seq 1 $TOTAL_COMMITS); do
+            echo "Streak update $i/$TOTAL_COMMITS: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> activity-log.txt
+            git add activity-log.txt
+            git commit -m "chore: automated daily graph streak update $i/$TOTAL_COMMITS [skip ci]"
+            sleep 2
+          done
+
+      - name: Push commits
         run: |
-          git add activity-log.txt
-          git commit -m "chore: automated daily graph streak update [skip ci]"
           git pull --rebase origin main || true
           git push origin HEAD:main
