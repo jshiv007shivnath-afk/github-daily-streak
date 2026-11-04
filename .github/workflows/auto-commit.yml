@@ -1,0 +1,37 @@
+name: Daily Contribution Streak Keeper
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every day (05:30 AM IST)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git identity
+        run: |
+          # Default to GitHub Actions Bot identity
+          # NOTE: If you want GitHub to attribute commits to your personal contribution graph,
+          # set your GitHub email address below or configure repository secrets.
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update activity log
+        run: |
+          echo "Activity update: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> activity-log.txt
+
+      - name: Commit and push changes
+        run: |
+          git add activity-log.txt
+          git commit -m "chore: automated daily graph streak update [skip ci]"
+          git push origin main
