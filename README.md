@@ -29,3 +29,6 @@ You can test the workflow anytime without waiting for the 9:00 AM schedule:
 
 ## Collaboration
 Co-authored and verified for streak continuity.
+
+## License
+MIT License.
