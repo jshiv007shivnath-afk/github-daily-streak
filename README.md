@@ -26,3 +26,6 @@ You can test the workflow anytime without waiting for the 9:00 AM schedule:
 1. Go to the **Actions** tab on your GitHub repository: [Actions](https://github.com/jshiv007shivnath-afk/github-daily-streak/actions).
 2. Select **Daily Contribution Streak Keeper** from the workflows list on the left.
 3. Click the **Run workflow** dropdown and press the green **Run workflow** button.
+
+## Collaboration
+Co-authored and verified for streak continuity.
