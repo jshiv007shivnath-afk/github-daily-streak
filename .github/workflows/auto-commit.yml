@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       commit_count:
-        description: 'Number of commits to create (default: random between 50 and 200)'
+        description: 'Number of commits to create (default: random between 100 and 500)'
         required: false
         default: 'random'
 
@@ -28,14 +28,14 @@ jobs:
           git config --local user.name "jshiv007shivnath-afk"
           git config --local user.email "jshiv007.shivnath@gmail.com"
 
-      - name: Generate daily commits (50 to 200 commits)
+      - name: Generate daily commits (100 to 500 commits)
         run: |
-          # Determine commit count: either input value or random between 50 and 200
+          # Determine commit count: either custom input value or random between 100 and 500
           if [ "${{ github.event.inputs.commit_count }}" != "" ] && [ "${{ github.event.inputs.commit_count }}" != "random" ]; then
             TOTAL_COMMITS=${{ github.event.inputs.commit_count }}
           else
-            # Generates random count between 50 and 200 (kabhi 50, kabhi 100, kabhi 150, highest 200)
-            TOTAL_COMMITS=$(( (RANDOM % 151) + 50 ))
+            # Generates random count between 100 and 500
+            TOTAL_COMMITS=$(( (RANDOM % 401) + 100 ))
           fi
 
           echo "Target commit count for today: $TOTAL_COMMITS"
@@ -43,8 +43,8 @@ jobs:
           for i in $(seq 1 $TOTAL_COMMITS); do
             echo "Streak update $i/$TOTAL_COMMITS: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> activity-log.txt
             git add activity-log.txt
-            git commit -m "chore: automated daily graph streak update $i/$TOTAL_COMMITS [skip ci]"
-            sleep 0.2
+            git commit -m "chore: automated daily graph streak update $i/$TOTAL_COMMITS [skip ci]" --quiet
+            sleep 0.1
           done
 
       - name: Push commits

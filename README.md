@@ -1,13 +1,13 @@
 # GitHub Daily Contribution Streak Keeper
 
-Automated daily commit repository designed to keep your GitHub contribution graph active and dark green with **50 to 200 contributions every single day**, running entirely in the cloud via GitHub Actions.
+Automated daily commit repository designed to keep your GitHub contribution graph active and dark green with **100 to 500 contributions every single day**, running entirely in the cloud via GitHub Actions.
 
 ## Features
-- **50 to 200 Commits Daily**: Automatically creates a randomized batch of 50 to 200 commits (kabhi 50, kabhi 100, kabhi 150, max 200) every day.
-- **Daily 9:00 AM IST Schedule**: Runs automatically at 09:00 AM IST (`30 3 * * *` UTC).
+- **100 to 500 Commits Daily**: Automatically creates a randomized batch of 100 to 500 commits every day at 9:00 AM IST.
+- **Safe & Blazing Dark Green**: Maximizes streak intensity while staying within GitHub's optimal safety thresholds.
 - **Personalized Attribution**: Configured for `jshiv007shivnath-afk` (`jshiv007.shivnath@gmail.com`).
 - **Cloud Execution**: Runs independently on GitHub's servers whether your local PC is on or off.
-- **Manual Trigger**: Option to trigger on-demand via `workflow_dispatch` with a custom commit count if desired.
+- **Manual Trigger**: Option to trigger on-demand via `workflow_dispatch` with a custom commit count whenever desired.
 
 ---
 
@@ -25,10 +25,4 @@ In your GitHub repository:
 You can test the workflow anytime without waiting for the 9:00 AM schedule:
 1. Go to the **Actions** tab on your GitHub repository: [Actions](https://github.com/jshiv007shivnath-afk/github-daily-streak/actions).
 2. Select **Daily Contribution Streak Keeper** from the workflows list on the left.
-3. Click the **Run workflow** dropdown and press the green **Run workflow** button.
-
-## Collaboration
-Co-authored and verified for streak continuity.
-
-## License
-MIT License.
+3. Click the **Run workflow** dropdown (optionally specify any custom count like `1000`) and press the green **Run workflow** button.
